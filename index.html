@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>SURDO.MY — Русский жестовый язык</title>
   
-  <!-- Настройки для запуска как PWA / Full-Screen приложение -->
   <meta name="theme-color" content="#0b131e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,15 +28,27 @@
       height: 100%;
       height: -webkit-fill-available;
       overflow: hidden;
-      background-color: #0b131e;
+      background: radial-gradient(circle at 50% 20%, #15263d 0%, #070d16 100%);
       color: #ffffff;
       position: fixed;
+    }
+
+    /* Фоновые живые блики в стиле visionOS */
+    .ambient-glow {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: rgba(0, 122, 255, 0.15);
+      filter: blur(80px);
+      border-radius: 50%;
+      top: -50px; left: -50px;
+      z-index: 1;
+      pointer-events: none;
     }
 
     /* Контейнеры вкладок */
     .tab-content {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 96px;
+      top: 0; left: 0; right: 0; bottom: 105px;
       padding: max(24px, env(safe-area-inset-top)) 20px 20px 20px;
       overflow-y: auto;
       display: none;
@@ -51,49 +62,58 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .brand {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       display: flex;
       align-items: center;
       gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
     }
-    .brand span { color: #007aff; }
+    .brand span { color: #0a84ff; text-shadow: 0 0 10px rgba(10, 132, 255, 0.5); }
 
     .menu-btn {
-      width: 40px; height: 40px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 44px; height: 44px;
+      background: rgba(15, 34, 61, 0.55);
+      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 50%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
       cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
     }
-    .menu-btn span { width: 18px; height: 2px; background: #fff; border-radius: 2px; }
+    .menu-btn:active { transform: scale(0.92); }
+    .menu-btn span { width: 16px; height: 2px; background: #fff; border-radius: 2px; }
 
-    /* Поисковая карточка (Перевод) */
-    .translator-card {
-      background: rgba(15, 34, 61, 0.65);
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 28px;
-      padding: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    /* Карточка поиска */
+    .glass-card {
+      background: rgba(15, 34, 61, 0.5);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 32px;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.2);
       margin-bottom: 20px;
     }
 
     .search-row {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(255, 255, 255, 0.25);
-      border-radius: 22px;
-      padding: 6px 6px 6px 14px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      padding: 6px 6px 6px 16px;
       gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .search-input {
       flex: 1; border: none; background: transparent; font-size: 16px; color: #ffffff; font-weight: 600; outline: none; user-select: text; -webkit-user-select: text;
@@ -101,14 +121,15 @@
     .search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
     .search-icon-btn {
-      width: 44px; height: 44px;
-      background: rgba(255, 255, 255, 0.15);
-      border: none; border-radius: 18px;
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%);
+      border: none; border-radius: 20px;
       color: #fff; font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(10,132,255,0.4);
       transition: transform 0.2s;
     }
-    .search-icon-btn:active { transform: scale(0.92); }
+    .search-icon-btn:active { transform: scale(0.9); }
 
     .hint-text {
       font-size: 13px;
@@ -116,71 +137,90 @@
       line-height: 1.4;
     }
 
-    /* Модальное окно плеера жеста */
+    /* Чипсы популярных запросов */
+    .chips-container { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      padding: 10px 16px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.2s;
+    }
+    .chip:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.2); }
+
+    /* Полноэкранный плеер жеста */
     .video-modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+      background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
       z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
       padding: 20px;
     }
     .video-modal.open { opacity: 1; pointer-events: auto; }
 
-    .video-container {
-      width: 100%; max-width: 480px;
-      background: linear-gradient(135deg, #102a1c 0%, #081c15 100%);
-      border-radius: 24px; border: 1.5px solid rgba(255,255,255,0.3);
-      overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-      position: relative;
+    .video-card {
+      width: 100%; max-width: 440px;
+      background: rgba(15, 34, 61, 0.7);
+      backdrop-filter: blur(30px);
+      border-radius: 32px; border: 1px solid rgba(255,255,255,0.3);
+      overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
     }
 
-    .video-header {
-      padding: 16px; display: flex; justify-content: space-between; align-items: center;
-      background: rgba(0,0,0,0.3); font-weight: 700; font-size: 16px;
-    }
-
-    .video-preview-stage {
-      width: 100%; height: 260px;
-      background: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80') center/cover;
+    .video-screen {
+      width: 100%; height: 280px;
+      background: linear-gradient(135deg, #0d231b 0%, #05100c 100%);
       position: relative; display: flex; align-items: center; justify-content: center;
     }
-    .play-badge {
-      width: 64px; height: 64px; background: rgba(0, 122, 255, 0.85); backdrop-filter: blur(10px);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;
-      box-shadow: 0 10px 25px rgba(0,122,255,0.5); cursor: pointer; transition: transform 0.2s;
-    }
-    .play-badge:active { transform: scale(0.9); }
 
-    /* Камера вкладка */
-    .camera-view {
-      flex: 1; background: #000; border-radius: 24px; border: 1px solid rgba(255,255,255,0.2);
+    /* Анимированный аватар переводчика / видео */
+    .translator-avatar {
+      font-size: 64px;
+      animation: pulseAvatar 3s ease-in-out infinite;
+    }
+    @keyframes pulseAvatar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+    /* Вкладка Камера и Общение */
+    .native-placeholder-card {
+      flex: 1; background: rgba(15, 34, 61, 0.4);
+      backdrop-filter: blur(25px); border-radius: 32px; border: 1px solid rgba(255,255,255,0.15);
       display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-      padding: 20px; position: relative; overflow: hidden;
+      padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
-    /* Общение вкладка */
-    .chat-list { display: flex; flex-direction: column; gap: 10px; }
-    .chat-item {
-      background: rgba(15, 34, 61, 0.5); backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    .chat-list { display: flex; flex-direction: column; gap: 12px; }
+    .chat-bubble {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 22px; padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; font-size: 14px; font-weight: 500;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: background 0.2s;
     }
+    .chat-bubble:active { background: rgba(255, 255, 255, 0.18); }
 
-    /* Нижняя навигация */
+    /* Нижняя навигационная панель Apple Liquid Glass */
     .bottom-nav {
       position: fixed;
       bottom: max(20px, env(safe-area-inset-bottom));
       left: 16px; right: 16px;
-      height: 72px;
-      background: rgba(15, 34, 61, 0.65);
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 36px;
+      height: 76px;
+      background: rgba(15, 34, 61, 0.55);
+      backdrop-filter: blur(35px) saturate(190%);
+      -webkit-backdrop-filter: blur(35px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 38px;
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 0 10px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      padding: 0 8px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.3);
       z-index: 50;
     }
 
@@ -189,44 +229,49 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 4px; color: rgba(255, 255, 255, 0.5);
       cursor: pointer; width: 33.33%; height: 100%;
-      transition: color 0.2s;
+      transition: color 0.2s, transform 0.2s;
     }
+    .nav-btn:active { transform: scale(0.92); }
     .nav-icon { font-size: 22px; }
     .nav-label { font-size: 11px; font-weight: 600; }
-    .nav-btn.active { color: #007aff; text-shadow: 0 0 10px rgba(0,122,255,0.5); }
+    .nav-btn.active { color: #ffffff; text-shadow: 0 0 12px rgba(255,255,255,0.6); }
+    .nav-btn.active .nav-icon { filter: drop-shadow(0 0 8px rgba(10,132,255,0.8)); }
   </style>
 </head>
 <body>
+
+  <div class="ambient-glow"></div>
 
   <!-- Вкладка 1: Перевод -->
   <div class="tab-content active" id="tab-translate">
     <div class="app-header">
       <div class="brand">🇷🇺 <span>SURDO</span>.MY</div>
-      <div class="menu-btn" onclick="alert('Меню настроек')">
+      <div class="menu-btn" onclick="openSettingsModal()">
         <span></span><span></span><span></span>
       </div>
     </div>
 
-    <div style="font-size: 26px; font-weight: 800; margin-bottom: 16px; line-height: 1.2;">
+    <div style="font-size: 28px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; letter-spacing: -0.5px;">
       Русский жестовый<br>язык
     </div>
 
-    <div class="translator-card">
+    <div class="glass-card">
       <div class="search-row">
         <span style="font-size: 20px;">🇷🇺</span>
         <input type="text" class="search-input" id="signInput" placeholder="Введите жест (например: Прививка)...">
         <button class="search-icon-btn" onclick="searchSign()">🔍</button>
       </div>
       <div class="hint-text">
-        Ищете информацию о конкретном слове на русском жестовом языке? Введите нужное слово для получения видео-разбора.
+        Ищете информацию о конкретном слове? Введите нужное слово для мгновенного получения видео-разбора.
       </div>
     </div>
 
-    <div style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">Популярные запросы</div>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-      <span onclick="quickSearch('Прививка')" style="background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 14px; font-size: 13px; cursor: pointer; border: 1px solid rgba(255,255,255,0.15);">🩺 Прививка</span>
-      <span onclick="quickSearch('Привет')" style="background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 14px; font-size: 13px; cursor: pointer; border: 1px solid rgba(255,255,255,0.15);">👋 Привет</span>
-      <span onclick="quickSearch('Спасибо')" style="background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 14px; font-size: 13px; cursor: pointer; border: 1px solid rgba(255,255,255,0.15);">🤝 Спасибо</span>
+    <div style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Популярные запросы</div>
+    <div class="chips-container">
+      <div class="chip" onclick="quickSearch('Прививка')">🩺 Прививка</div>
+      <div class="chip" onclick="quickSearch('Привет')">👋 Привет</div>
+      <div class="chip" onclick="quickSearch('Спасибо')">🤝 Спасибо</div>
+      <div class="chip" onclick="quickSearch('Помощь')">🆘 Помощь</div>
     </div>
   </div>
 
@@ -234,12 +279,13 @@
   <div class="tab-content" id="tab-camera">
     <div class="app-header">
       <div class="brand">📷 <span>Камера РЖЯ</span></div>
+      <div class="menu-btn" onclick="openSettingsModal()"><span></span><span></span><span></span></div>
     </div>
-    <div class="camera-view">
-      <div style="font-size: 48px; margin-bottom: 12px;">👁️</div>
-      <b style="font-size: 16px; margin-bottom: 6px;">Сканирование жеста</b>
-      <span style="font-size: 13px; color: rgba(255,255,255,0.7);">Наведите камеру на собеседника для перевода в реальном времени</span>
-      <div style="margin-top: 20px; background: #007aff; padding: 12px 24px; border-radius: 20px; font-weight: 700; cursor: pointer;">
+    <div class="native-placeholder-card">
+      <div style="font-size: 56px; margin-bottom: 14px;">👁️‍🗨️</div>
+      <b style="font-size: 18px; margin-bottom: 8px;">Сканирование жеста в реальном времени</b>
+      <span style="font-size: 13px; color: rgba(255,255,255,0.65); max-width: 260px; line-height: 1.4;">Наведите камеру на собеседника для автоматического перевода жестов</span>
+      <div style="margin-top: 24px; background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%); padding: 14px 28px; border-radius: 22px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(10,132,255,0.4);" onclick="alert('Камера активирована')">
         Включить камеру
       </div>
     </div>
@@ -249,28 +295,30 @@
   <div class="tab-content" id="tab-chat">
     <div class="app-header">
       <div class="brand">💬 <span>Общение</span></div>
+      <div class="menu-btn" onclick="openSettingsModal()"><span></span><span></span><span></span></div>
     </div>
-    <div style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Быстрые фразы</div>
+    <div style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Быстрые диалоговые фразы</div>
     <div class="chat-list">
-      <div class="chat-item"><span>«Здравствуйте, чем могу помочь?»</span><span>▶</span></div>
-      <div class="chat-item"><span>«Повторите, пожалуйста, медленнее»</span><span>▶</span></div>
-      <div class="chat-item"><span>«Благодарю за помощь!»</span><span>▶</span></div>
-      <div class="chat-item"><span>«Где находится ближайшая аптека?»</span><span>▶</span></div>
+      <div class="chat-bubble" onclick="quickSearch('Здравствуйте, чем могу помочь?')"><span>«Здравствуйте, чем могу помочь?»</span><span>▶</span></div>
+      <div class="chat-bubble" onclick="quickSearch('Повторите, пожалуйста, медленнее')"><span>«Повторите медленнее»</span><span>▶</span></div>
+      <div class="chat-bubble" onclick="quickSearch('Благодарю за помощь!')"><span>«Благодарю за помощь!»</span><span>▶</span></div>
+      <div class="chat-bubble" onclick="quickSearch('Где находится ближайшая аптека?')"><span>«Где ближайшая аптека?»</span><span>▶</span></div>
     </div>
   </div>
 
-  <!-- Модальное окно плеера -->
+  <!-- Видео-плеер модальное окно (вместо alert) -->
   <div class="video-modal" id="videoModal">
-    <div class="video-container">
-      <div class="video-header">
-        <span id="modalTitle">Поиск жеста</span>
-        <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="closeVideoModal()">✕</div>
+    <div class="video-card">
+      <div style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+        <span id="modalTitle" style="font-weight: 700; font-size: 16px;">Жест</span>
+        <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="closeVideoModal()">✕</div>
       </div>
-      <div class="video-preview-stage">
-        <div class="play-badge" onclick="alert('Воспроизведение видео жеста')">▶</div>
+      <div class="video-screen">
+        <div class="translator-avatar">👩‍🦱</div>
+        <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 10px; font-size: 11px;">Вариант 1 • РЖЯ</div>
       </div>
-      <div style="padding: 14px; font-size: 13px; color: rgba(255,255,255,0.8); text-align: center;">
-        © Surdo.media, 2026 • Вариант 1
+      <div style="padding: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.15);">
+        © Surdo.media, 2026 • Воспроизведение жеста
       </div>
     </div>
   </div>
@@ -316,7 +364,11 @@
     function closeVideoModal() {
       document.getElementById('videoModal').classList.remove('open');
     }
+
+    function openSettingsModal() {
+      document.getElementById('modalTitle').innerText = 'Настройки приложения';
+      document.getElementById('videoModal').classList.add('open');
+    }
   </script>
 </body>
 </html>
-
