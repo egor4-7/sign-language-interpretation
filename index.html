@@ -33,7 +33,6 @@
       position: fixed;
     }
 
-    /* Фоновые живые блики */
     .ambient-glow-1 {
       position: absolute; width: 320px; height: 320px;
       background: rgba(0, 122, 255, 0.22); filter: blur(90px); border-radius: 50%;
@@ -76,32 +75,24 @@
     .menu-btn:active { transform: scale(0.92); }
     .menu-btn span { width: 16px; height: 2px; background: #fff; border-radius: 2px; }
 
-    /* --- ЖИВОЙ ГЛАВНЫЙ БАННЕР С 3D-АВАТАРОМ --- */
+    /* Главный баннер */
     .hero-banner {
       background: linear-gradient(135deg, rgba(20, 50, 80, 0.6) 0%, rgba(10, 25, 45, 0.7) 100%);
       backdrop-filter: blur(35px) saturate(190%);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 32px;
-      padding: 24px;
-      margin-bottom: 18px;
+      border-radius: 32px; padding: 20px; margin-bottom: 16px;
       box-shadow: 0 20px 45px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .hero-content { max-width: 60%; }
-    .hero-title { font-size: 22px; font-weight: 800; line-height: 1.15; margin-bottom: 6px; letter-spacing: -0.3px; }
-    .hero-subtitle { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.35; }
+    .hero-title { font-size: 20px; font-weight: 800; line-height: 1.15; margin-bottom: 4px; letter-spacing: -0.3px; }
+    .hero-subtitle { font-size: 11px; color: rgba(255,255,255,0.7); line-height: 1.35; }
     
     .hero-avatar-box {
-      width: 90px; height: 90px;
+      width: 80px; height: 80px;
       background: radial-gradient(circle, rgba(10,132,255,0.4) 0%, rgba(0,0,0,0.4) 100%);
-      border: 1.5px solid rgba(255,255,255,0.3);
-      border-radius: 28px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 44px;
+      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 26px;
+      display: flex; align-items: center; justify-content: center; font-size: 40px;
       box-shadow: 0 10px 30px rgba(10,132,255,0.4);
       animation: floatAvatar 4s ease-in-out infinite;
     }
@@ -110,22 +101,15 @@
       50% { transform: translateY(-6px) rotate(3deg); }
     }
 
-    /* Карточка поиска */
     .glass-card {
-      background: rgba(15, 34, 61, 0.45);
-      backdrop-filter: blur(30px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 28px;
-      padding: 18px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-      margin-bottom: 16px;
+      background: rgba(15, 34, 61, 0.45); backdrop-filter: blur(30px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 16px;
     }
 
     .search-row {
-      display: flex; align-items: center;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1.5px solid rgba(255, 255, 255, 0.2);
-      border-radius: 22px; padding: 6px 6px 6px 16px; gap: 10px;
+      display: flex; align-items: center; background: rgba(0, 0, 0, 0.3);
+      border: 1.5px solid rgba(255, 255, 255, 0.2); border-radius: 22px; padding: 6px 6px 6px 16px; gap: 10px;
     }
     .search-input {
       flex: 1; border: none; background: transparent; font-size: 16px; color: #ffffff; font-weight: 600; outline: none; user-select: text; -webkit-user-select: text;
@@ -133,38 +117,157 @@
     .search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
     .search-icon-btn {
-      width: 44px; height: 44px;
-      background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%);
+      width: 44px; height: 44px; background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%);
       border: none; border-radius: 18px; color: #fff; font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 6px 16px rgba(10,132,255,0.4); transition: transform 0.2s;
     }
     .search-icon-btn:active { transform: scale(0.9); }
 
-    /* Блок «Слово дня» (интерактивный виджет) */
-    .word-of-day {
-      background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(15, 34, 61, 0.5) 100%);
-      backdrop-filter: blur(25px);
-      border: 1px solid rgba(46, 204, 113, 0.4);
-      border-radius: 26px;
-      padding: 16px 20px;
+    /* --- ИЗОЛИРОВАННЫЙ LIQUID GLASS БАР ИЗ ПРИМЕРА --- */
+    .segmented-control-container {
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
       margin-bottom: 16px;
+    }
+    .segmented-control-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .segmented-track {
+      position: relative;
+      display: inline-flex;
+      background: rgba(15, 34, 61, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 28px;
+      padding: 4px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      user-select: none;
+    }
+
+    .lens-indicator {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      height: calc(100% - 8px);
+      background: rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(25px) saturate(190%);
+      -webkit-backdrop-filter: blur(25px) saturate(190%);
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
+      border-radius: 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 12px rgba(255, 255, 255, 0.4);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+      z-index: 1;
+      transform-origin: center;
+    }
+
+    .lens-indicator.pressing {
+      transform: scale(1.15) !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .segmented-btn {
+      position: relative;
+      z-index: 2;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .segmented-btn.active {
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    }
+
+    /* Секции контента категорий */
+    .section-view { display: none; flex-direction: column; gap: 10px; }
+    .section-view.active { display: flex; }
+
+    .category-card {
+      background: rgba(15, 34, 61, 0.5); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 22px; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25); transition: transform 0.2s;
+    }
+    .category-card:active { transform: scale(0.97); }
+
+    .alphabet-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    }
+    .alpha-btn {
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; height: 50px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .alpha-btn:active { background: rgba(10,132,255,0.4); transform: scale(0.95); }
+
+    /* История */
+    .history-card {
+      background: rgba(15, 34, 61, 0.5); backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 22px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4); line-height: 1.6; font-size: 14px; color: rgba(255,255,255,0.9);
+      display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;
+    }
+    .history-card h2 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .history-card h3 { font-size: 16px; font-weight: 700; color: #0a84ff; margin-top: 8px; }
+    .history-card p { color: rgba(255,255,255,0.8); }
+    .history-card ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+
+    /* Чат */
+    .chat-container {
+      flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+      background: rgba(15, 34, 61, 0.4); backdrop-filter: blur(25px);
+      border-radius: 28px; border: 1px solid rgba(255,255,255,0.15);
+      overflow: hidden; padding: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+    .chat-messages {
+      flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 10px;
+    }
+    .message {
+      max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 14px; line-height: 1.4;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); word-break: break-word;
+    }
+    .message.incoming {
+      background: rgba(255, 255, 255, 0.12); align-self: flex-start;
+      border: 1px solid rgba(255, 255, 255, 0.2); border-bottom-left-radius: 6px;
+    }
+    .message.outgoing {
+      background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%); align-self: flex-end;
+      border-bottom-right-radius: 6px; box-shadow: 0 6px 20px rgba(10,132,255,0.4);
+    }
+    .chat-input-row {
+      display: flex; gap: 8px; align-items: center; margin-top: 10px;
+      background: rgba(0, 0, 0, 0.3); border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px; padding: 6px 6px 6px 14px;
+    }
+
+    .chat-list { display: flex; flex-direction: column; gap: 12px; }
+    .chat-bubble {
+      background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 22px; padding: 16px 20px;
       display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+      cursor: pointer; font-size: 14px; font-weight: 500; box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
-    .word-of-day:active { transform: scale(0.97); }
+    .chat-bubble:active { background: rgba(255, 255, 255, 0.18); }
 
-    .chips-container { display: flex; gap: 8px; flex-wrap: wrap; }
-    .chip {
-      background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px);
-      padding: 10px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: all 0.2s;
-    }
-    .chip:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.2); }
-
-    /* Полноэкранный 3D Плеер жеста */
+    /* 3D Плеер жеста */
     .video-modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
@@ -204,22 +307,6 @@
     @keyframes pulseLeft { 0%, 100% { transform: translateX(0) scale(1); } 50% { transform: translateX(6px) scale(1.06); } }
     @keyframes pulseRight { 0%, 100% { transform: translateX(0) scale(1); } 50% { transform: translateX(-6px) scale(1.06); } }
 
-    .native-placeholder-card {
-      flex: 1; background: rgba(15, 34, 61, 0.4); backdrop-filter: blur(25px);
-      border-radius: 32px; border: 1px solid rgba(255,255,255,0.15);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-      padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    }
-
-    .chat-list { display: flex; flex-direction: column; gap: 12px; }
-    .chat-bubble {
-      background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 22px; padding: 16px 20px;
-      display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer; font-size: 14px; font-weight: 500; box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .chat-bubble:active { background: rgba(255, 255, 255, 0.18); }
-
     /* Нижняя навигация */
     .bottom-nav {
       position: fixed; bottom: max(20px, env(safe-area-inset-bottom));
@@ -227,18 +314,18 @@
       background: rgba(15, 34, 61, 0.55); backdrop-filter: blur(35px) saturate(190%);
       -webkit-backdrop-filter: blur(35px) saturate(190%);
       border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 38px;
-      display: flex; align-items: center; justify-content: space-around; padding: 0 8px;
+      display: flex; align-items: center; justify-content: space-around; padding: 0 4px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.3); z-index: 50;
     }
 
     .nav-btn {
       background: transparent; border: none; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 4px; color: rgba(255, 255, 255, 0.5);
-      cursor: pointer; width: 33.33%; height: 100%; transition: color 0.2s, transform 0.2s;
+      align-items: center; justify-content: center; gap: 3px; color: rgba(255, 255, 255, 0.5);
+      cursor: pointer; width: 25%; height: 100%; transition: color 0.2s, transform 0.2s;
     }
     .nav-btn:active { transform: scale(0.92); }
-    .nav-icon { font-size: 22px; }
-    .nav-label { font-size: 11px; font-weight: 600; }
+    .nav-icon { font-size: 20px; }
+    .nav-label { font-size: 10px; font-weight: 600; }
     .nav-btn.active { color: #ffffff; text-shadow: 0 0 12px rgba(255,255,255,0.6); }
     .nav-btn.active .nav-icon { filter: drop-shadow(0 0 8px rgba(10,132,255,0.8)); }
   </style>
@@ -248,7 +335,7 @@
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
 
-  <!-- Вкладка 1: Перевод (Живой Главный экран) -->
+  <!-- Вкладка 1: Перевод -->
   <div class="tab-content active" id="tab-translate">
     <div class="app-header">
       <div class="brand">🇷🇺 <span>SURDO</span>.MY</div>
@@ -257,15 +344,12 @@
       </div>
     </div>
 
-    <!-- Живой Баннер с 3D-аватаркой -->
     <div class="hero-banner">
       <div class="hero-content">
         <div class="hero-title">Живой перевод жестов</div>
-        <div class="hero-subtitle">Мгновенный поиск и 3D-моделирование РЖЯ с искусственным интеллектом</div>
+        <div class="hero-subtitle">Мгновенный поиск, категории и 3D-моделирование РЖЯ</div>
       </div>
-      <div class="hero-avatar-box">
-        🤖
-      </div>
+      <div class="hero-avatar-box">🤖</div>
     </div>
 
     <div class="glass-card">
@@ -276,52 +360,108 @@
       </div>
     </div>
 
-    <!-- Виджет «Слово дня» -->
-    <div class="word-of-day" onclick="quickSearch('Благодарность')">
-      <div>
-        <div style="font-size: 11px; font-weight: 700; color: #2ecc71; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">✨ Слово дня</div>
-        <div style="font-size: 16px; font-weight: 800;">Благодарность</div>
+    <!-- Интегрированный Liquid Glass бар с физикой лупы из вашего примера -->
+    <div class="segmented-control-container">
+      <div class="segmented-track" id="segmentedTrack">
+        <div class="lens-indicator" id="lensIndicator"></div>
+        <button class="segmented-btn active" data-type="cat" onclick="switchTranslateMode('cat', this)">🗂️ Категории</button>
+        <button class="segmented-btn" data-type="alpha" onclick="switchTranslateMode('alpha', this)">🔤 Алфавит</button>
+        <button class="segmented-btn" data-type="agri" onclick="quickSearch('Сельское хозяйство')">🌾 Сельское хоз.</button>
+        <button class="segmented-btn" data-type="med" onclick="quickSearch('Медицина')">🩺 Медицина</button>
+        <button class="segmented-btn" data-type="art" onclick="quickSearch('Искусство')">🎨 Искусство</button>
       </div>
-      <div style="width: 36px; height: 36px; background: rgba(46,204,113,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</div>
     </div>
 
-    <div style="font-size: 14px; font-weight: 700; margin-bottom: 10px; color: rgba(255,255,255,0.8);">Популярные запросы</div>
-    <div class="chips-container">
-      <div class="chip" onclick="quickSearch('Прививка')">🩺 Прививка</div>
-      <div class="chip" onclick="quickSearch('Привет')">👋 Привет</div>
-      <div class="chip" onclick="quickSearch('Спасибо')">🤝 Спасибо</div>
-      <div class="chip" onclick="quickSearch('Помощь')">🆘 Помощь</div>
+    <!-- Вид 1: Категории -->
+    <div class="section-view active" id="viewCategories">
+      <div class="category-card" onclick="quickSearch('Сельское хозяйство')">
+        <div><b style="font-size: 14px;">🌾 Сельское хозяйство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Аспекты сельского хозяйства</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Счет, числительные')">
+        <div><b style="font-size: 14px;">🔢 Счет, числительные</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Правила счета и числа</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Труд, трудовые отношения')">
+        <div><b style="font-size: 14px;">💼 Труд, трудовые отношения</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Тема труда и экономики</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Медицина')">
+        <div><b style="font-size: 14px;">🩺 Медицина</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Медицинские термины</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Искусство')">
+        <div><b style="font-size: 14px;">🎨 Искусство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Искусство, живопись, поэзия</div></div>
+        <span>▶</span>
+      </div>
+    </div>
+
+    <!-- Вид 2: Алфавит -->
+    <div class="section-view" id="viewAlphabet">
+      <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 6px;">Выберите букву для дактилологического алфавита:</div>
+      <div class="alphabet-grid" id="alphabetGrid"></div>
     </div>
   </div>
 
-  <!-- Вкладка 2: Камера -->
-  <div class="tab-content" id="tab-camera">
+  <!-- Вкладка 2: Диалог с глухим собеседником -->
+  <div class="tab-content" id="tab-chat-person">
     <div class="app-header">
-      <div class="brand">📷 <span>Камера РЖЯ</span></div>
+      <div class="brand">💬 <span>Диалог с собеседником</span></div>
       <div class="menu-btn" onclick="openSettingsModal()"><span></span><span></span><span></span></div>
     </div>
-    <div class="native-placeholder-card">
-      <div style="font-size: 56px; margin-bottom: 14px;">👁️‍🗨️</div>
-      <b style="font-size: 18px; margin-bottom: 8px;">Сканирование жеста в реальном времени</b>
-      <span style="font-size: 13px; color: rgba(255,255,255,0.65); max-width: 260px; line-height: 1.4;">Наведите камеру на собеседника для автоматического перевода жестов</span>
-      <div style="margin-top: 24px; background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%); padding: 14px 28px; border-radius: 22px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(10,132,255,0.4);" onclick="alert('Камера активирована')">
-        Включить камеру
+    
+    <div class="chat-container">
+      <div class="chat-messages" id="chatMessages">
+        <div class="message incoming">Здравствуйте! Передайте этот экран собеседнику для текстового общения в реальном времени. 👋</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="search-input" id="chatInput" placeholder="Введите сообщение...">
+        <button class="search-icon-btn" onclick="sendChatMessage()">💬</button>
       </div>
     </div>
   </div>
 
-  <!-- Вкладка 3: Общение -->
+  <!-- Вкладка 3: Общение (Быстрые фразы) -->
   <div class="tab-content" id="tab-chat">
     <div class="app-header">
-      <div class="brand">💬 <span>Общение</span></div>
+      <div class="brand">👥 <span>Быстрые фразы</span></div>
       <div class="menu-btn" onclick="openSettingsModal()"><span></span><span></span><span></span></div>
     </div>
-    <div style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Быстрые диалоговые фразы</div>
+    <div style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Часто используемые фразы</div>
     <div class="chat-list">
       <div class="chat-bubble" onclick="quickSearch('Здравствуйте, чем могу помочь?')"><span>«Здравствуйте, чем могу помочь?»</span><span>▶</span></div>
       <div class="chat-bubble" onclick="quickSearch('Повторите, пожалуйста, медленнее')"><span>«Повторите медленнее»</span><span>▶</span></div>
       <div class="chat-bubble" onclick="quickSearch('Благодарю за помощь!')"><span>«Благодарю за помощь!»</span><span>▶</span></div>
       <div class="chat-bubble" onclick="quickSearch('Где находится ближайшая аптека?')"><span>«Где ближайшая аптека?»</span><span>▶</span></div>
+    </div>
+  </div>
+
+  <!-- Вкладка 4: История (Текст про РЖЯ) -->
+  <div class="tab-content" id="tab-history">
+    <div class="app-header">
+      <div class="brand">📜 <span>История РЖЯ</span></div>
+      <div class="menu-btn" onclick="openSettingsModal()"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="history-card">
+      <h2>Русский жестовый язык</h2>
+      <p>Любой язык представляет собой информационную систему с функцией формирования, хранения и передачи данных в процессе общения и восприятия окружающей действительности. Язык жестов – основа общения глухих и плохо слышащих людей. В нашей стране русский жестовый язык является основным у более 120 тысяч человек с проблемами слуха.</p>
+
+      <h3>Немного истории</h3>
+      <p>В Европейских странах язык для людей с плохим слухом появился в начале 18-го века. А первая школа для глухонемых открылась во Франции в 1760 году. Целью преподавания было научить глухих детей чтению и письму. Для общения с учениками использовали старый французский жестовый язык, который использовали некоторые группы глухонемых. Его несколько видоизменили и добавили специально разработанные для обучения грамматике учебные жесты.</p>
+      <p>В России язык жестов появился в 19-м веке. Его ввел в обиход директор Санкт-Петербургского училища глухонемых Г.А. Гурцов. Осознавая насущную необходимость глухих в словесном общении, он предложил обучать детей мимическому языку параллельно с письменным. В середине прошлого века образовалась Всемирная Федерация Глухих, и она стандартизировала язык жестов, разработав его единый вариант для всех национальностей. Словарь Международного языка жестов вышел в свет в 1973 году.</p>
+
+      <h3>Современный русский жестовый язык</h3>
+      <p>Известное изречение гласит: есть язык — есть народ, нет языка — нет народа. Отличительная особенность РЖЯ в качестве языка межнационального общения заключается в том, что он не вытесняет языки народов, населяющих федерацию, а функционирует наряду с ними. Такое взаимодействие образовало единый лексический фонд на основе русского языка.</p>
+      <p>Для полноценного изучения языка жестов, помимо теории обязательно необходимо приобрести практические навыки. Без них беглый сурдоперевод нереален. С целью освоения жестов на практике выпускаются специальные видео курсы. В целом изучение языка жестов потребует не меньше времени, чем любой другой язык, а итогом работы со словарем, лекции и видео уроки станет решение следующих задач:</p>
+      <ul>
+        <li>Расширение знаний в области лингвистической базы языка.</li>
+        <li>Формирование представления о языке глухих, как о естественном способе общения между людьми.</li>
+        <li>Изучение схожих с другими языками и отличных от них особенностей.</li>
+        <li>Ознакомление с историей возникновения языка жестов и этапами его развития.</li>
+        <li>Прививка мнения о важности изучения языка. Понимание роли русской и жестовой речи в жизни общества.</li>
+      </ul>
+      <p>В действительности понимать глухих гораздо сложнее, чем просто изучить жесты и показывать их самому. В жестикуляции глухих часто встречаются слова и выражения, которые тяжело перевести на обычный русский язык.</p>
     </div>
   </div>
 
@@ -351,23 +491,102 @@
       <span class="nav-icon">📖</span>
       <span class="nav-label">Перевод</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('camera', 1)">
-      <span class="nav-icon">📷</span>
-      <span class="nav-label">Камера</span>
+    <button class="nav-btn" onclick="switchTab('chat-person', 1)">
+      <span class="nav-icon">💬</span>
+      <span class="nav-label">Диалог</span>
     </button>
     <button class="nav-btn" onclick="switchTab('chat', 2)">
       <span class="nav-icon">👥</span>
       <span class="nav-label">Общение</span>
     </button>
+    <button class="nav-btn" onclick="switchTab('history', 3)">
+      <span class="nav-icon">📜</span>
+      <span class="nav-label">История</span>
+    </button>
   </nav>
 
   <script>
+    // Заполнение алфавита
+    const alphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
+    const grid = document.getElementById('alphabetGrid');
+    alphabet.forEach(letter => {
+      const btn = document.createElement('div');
+      btn.className = 'alpha-btn';
+      btn.innerText = letter;
+      btn.onclick = () => quickSearch('Буква ' + letter);
+      grid.appendChild(btn);
+    });
+
     function switchTab(tabId, index) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
 
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.nav-btn')[index].classList.add('active');
+    }
+
+    // Логика переключения режимов с Liquid Glass баром
+    const track = document.getElementById('segmentedTrack');
+    const lens = document.getElementById('lensIndicator');
+    const buttons = document.querySelectorAll('.segmented-btn');
+
+    function updateLens(btn) {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const btnRect = btn.getBoundingClientRect();
+      const trackRect = track.getBoundingClientRect();
+
+      const leftOffset = btnRect.left - trackRect.left - 4;
+      const scaleStr = lens.classList.contains('pressing') ? ' scale(1.15)' : '';
+      lens.style.transform = `translateX(${leftOffset}px)${scaleStr}`;
+      lens.style.width = `${btnRect.width}px`;
+    }
+
+    window.addEventListener('load', () => updateLens(buttons[0]));
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => updateLens(btn));
+    });
+
+    let isPressing = false;
+
+    function handleMove(clientX) {
+      if (!isPressing) return;
+      buttons.forEach(btn => {
+        const rect = btn.getBoundingClientRect();
+        if (clientX >= rect.left && clientX <= rect.right) {
+          updateLens(btn);
+        }
+      });
+    }
+
+    track.addEventListener('touchstart', (e) => {
+      isPressing = true;
+      lens.classList.add('pressing');
+      handleMove(e.touches[0].clientX);
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+      handleMove(e.touches[0].clientX);
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      isPressing = false;
+      lens.classList.remove('pressing');
+      const activeBtn = document.querySelector('.segmented-btn.active');
+      if (activeBtn) updateLens(activeBtn);
+    });
+
+    function switchTranslateMode(mode, btn) {
+      updateLens(btn);
+      if (mode === 'cat') {
+        document.getElementById('viewCategories').classList.add('active');
+        document.getElementById('viewAlphabet').classList.remove('active');
+      } else if (mode === 'alpha') {
+        document.getElementById('viewAlphabet').classList.add('active');
+        document.getElementById('viewCategories').classList.remove('active');
+      }
     }
 
     function searchSign() {
@@ -392,7 +611,34 @@
       document.getElementById('videoModal').classList.add('open');
     }
 
-    // Вращение 3D рук пальцем/мышкой в плеере
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chatMessages');
+      const msgOut = document.createElement('div');
+      msgOut.className = 'message outgoing';
+      msgOut.innerText = text;
+      container.appendChild(msgOut);
+
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      setTimeout(() => {
+        const msgIn = document.createElement('div');
+        msgIn.className = 'message incoming';
+        msgIn.innerText = 'Понял вас. Спасибо за удобный диалог! 👍';
+        container.appendChild(msgIn);
+        container.scrollTop = container.scrollHeight;
+      }, 1500);
+    }
+
+    document.getElementById('chatInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendChatMessage();
+    });
+
+    // 3D вращение рук
     const screen = document.getElementById('videoScreen');
     const stage = document.getElementById('handsStage');
     let isDragging = false;
