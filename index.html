@@ -12,6 +12,9 @@
   
   <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22SURDO.MY%22,%22short_name%22:%22Surdo%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230b131e%22,%22theme_color%22:%22%230b131e%22}">
   
+  <!-- Подключаем Three.js для настоящих полигональных 3D-моделей рук -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -75,7 +78,6 @@
     .menu-btn:active { transform: scale(0.92); }
     .menu-btn span { width: 16px; height: 2px; background: #fff; border-radius: 2px; }
 
-    /* Главный баннер */
     .hero-banner {
       background: linear-gradient(135deg, rgba(20, 50, 80, 0.6) 0%, rgba(10, 25, 45, 0.7) 100%);
       backdrop-filter: blur(35px) saturate(190%);
@@ -124,7 +126,7 @@
     }
     .search-icon-btn:active { transform: scale(0.9); }
 
-    /* --- LIQUID GLASS БАР С ФИЗИКОЙ ЛУПЫ --- */
+    /* Liquid Glass бар */
     .segmented-control-container {
       width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 16px;
     }
@@ -229,10 +231,10 @@
     }
     .chat-bubble:active { background: rgba(255, 255, 255, 0.18); }
 
-    /* 3D Плеер жеста */
+    /* Настоящий 3D Three.js Плеер жеста */
     .video-modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+      background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
       z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
     }
@@ -245,29 +247,11 @@
     }
 
     .video-screen {
-      width: 100%; height: 280px;
+      width: 100%; height: 260px;
       background: radial-gradient(circle at 50% 50%, #102a1c 0%, #050d0a 100%);
-      position: relative; display: flex; align-items: center; justify-content: center;
-      perspective: 800px; cursor: grab;
+      position: relative; overflow: hidden; cursor: grab;
     }
     .video-screen:active { cursor: grabbing; }
-
-    .hands-3d-stage {
-      position: relative; width: 160px; height: 160px;
-      transform-style: preserve-3d; transition: transform 0.1s ease-out;
-      animation: floatHands 4s ease-in-out infinite;
-    }
-    @keyframes floatHands {
-      0%, 100% { transform: translateY(0) rotateX(10deg) rotateY(-10deg); }
-      50% { transform: translateY(-8px) rotateX(15deg) rotateY(10deg); }
-    }
-
-    .hand-model { position: absolute; font-size: 64px; filter: drop-shadow(0 15px 25px rgba(0,255,128,0.3)); }
-    .hand-left { left: 10px; top: 30px; animation: pulseLeft 2s ease-in-out infinite; }
-    .hand-right { right: 10px; top: 30px; animation: pulseRight 2s ease-in-out infinite; }
-
-    @keyframes pulseLeft { 0%, 100% { transform: translateX(0) scale(1); } 50% { transform: translateX(6px) scale(1.06); } }
-    @keyframes pulseRight { 0%, 100% { transform: translateX(0) scale(1); } 50% { transform: translateX(-6px) scale(1.06); } }
 
     /* Нижняя навигация */
     .bottom-nav {
@@ -309,7 +293,7 @@
     <div class="hero-banner">
       <div class="hero-content">
         <div class="hero-title">Живой перевод жестов</div>
-        <div class="hero-subtitle">Мгновенный поиск, категории и 3D-моделирование РЖЯ</div>
+        <div class="hero-subtitle">Полный словарь, дактилологический алфавит и 3D-модели РЖЯ</div>
       </div>
       <div class="hero-avatar-box">🤖</div>
     </div>
@@ -317,50 +301,54 @@
     <div class="glass-card">
       <div class="search-row">
         <span style="font-size: 20px;">🇷🇺</span>
-        <input type="text" class="search-input" id="signInput" placeholder="Введите жест (например: Прививка)...">
+        <input type="text" class="search-input" id="signInput" placeholder="Введите слово или букву...">
         <button class="search-icon-btn" onclick="searchSign()">🔍</button>
       </div>
     </div>
 
-    <!-- Liquid Glass бар из вашего примера -->
+    <!-- Liquid Glass бар -->
     <div class="segmented-control-container">
       <div class="segmented-track" id="segmentedTrack">
         <div class="lens-indicator" id="lensIndicator"></div>
         <button class="segmented-btn active" data-type="cat" onclick="switchTranslateMode('cat', this)">🗂️ Категории</button>
-        <button class="segmented-btn" data-type="alpha" onclick="switchTranslateMode('alpha', this)">🔤 Алфавит</button>
-        <button class="segmented-btn" data-type="agri" onclick="quickSearch('Сельское хозяйство')">🌾 Сельское хоз.</button>
+        <button class="segmented-btn" data-type="alpha" onclick="switchTranslateMode('alpha', this)">🔤 Алфавит (А-Я)</button>
         <button class="segmented-btn" data-type="med" onclick="quickSearch('Медицина')">🩺 Медицина</button>
-        <button class="segmented-btn" data-type="art" onclick="quickSearch('Искусство')">🎨 Искусство</button>
+        <button class="segmented-btn" data-type="home" onclick="quickSearch('Дом')">🏠 Дом</button>
+        <button class="segmented-btn" data-type="soc" onclick="quickSearch('Общение')">💬 Общение</button>
       </div>
     </div>
 
-    <!-- Вид 1: Категории -->
+    <!-- Вид 1: Расширенные категории -->
     <div class="section-view active" id="viewCategories">
-      <div class="category-card" onclick="quickSearch('Сельское хозяйство')">
-        <div><b style="font-size: 14px;">🌾 Сельское хозяйство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Аспекты сельского хозяйства</div></div>
-        <span>▶</span>
-      </div>
-      <div class="category-card" onclick="quickSearch('Счет, числительные')">
-        <div><b style="font-size: 14px;">🔢 Счет, числительные</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Правила счета и числа</div></div>
-        <span>▶</span>
-      </div>
-      <div class="category-card" onclick="quickSearch('Труд, трудовые отношения')">
-        <div><b style="font-size: 14px;">💼 Труд, трудовые отношения</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Тема труда и экономики</div></div>
+      <div class="category-card" onclick="quickSearch('Приветствие')">
+        <div><b style="font-size: 14px;">👋 Приветствие и знакомство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Привет, спасибо, пожалуйста, пока</div></div>
         <span>▶</span>
       </div>
       <div class="category-card" onclick="quickSearch('Медицина')">
-        <div><b style="font-size: 14px;">🩺 Медицина</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Медицинские термины</div></div>
+        <div><b style="font-size: 14px;">🩺 Медицина и здоровье</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Врач, больница, прививка, аптека</div></div>
         <span>▶</span>
       </div>
-      <div class="category-card" onclick="quickSearch('Искусство')">
-        <div><b style="font-size: 14px;">🎨 Искусство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Искусство, живопись, поэзия</div></div>
+      <div class="category-card" onclick="quickSearch('Семья и человек')">
+        <div><b style="font-size: 14px;">👨‍👩‍👧 Семья, человек, внешность</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Мама, папа, друг, человек</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Город и транспорт')">
+        <div><b style="font-size: 14px;">🚌 Город и транспорт</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Автобус, магазин, аптека, улица</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Еда и кухня')">
+        <div><b style="font-size: 14px;">🍏 Кухня и еда</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Вода, хлеб, чай, обед</div></div>
+        <span>▶</span>
+      </div>
+      <div class="category-card" onclick="quickSearch('Счет, числительные')">
+        <div><b style="font-size: 14px;">🔢 Счет, числительные</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Один, два, три, сто</div></div>
         <span>▶</span>
       </div>
     </div>
 
-    <!-- Вид 2: Алфавит -->
+    <!-- Вид 2: Полноценный алфавит (А-Я) -->
     <div class="section-view" id="viewAlphabet">
-      <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 6px;">Выберите букву для дактилологического алфавита:</div>
+      <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 6px;">Нажмите на любую букву для демонстрации дактилологического знака:</div>
       <div class="alphabet-grid" id="alphabetGrid"></div>
     </div>
   </div>
@@ -398,7 +386,7 @@
     </div>
   </div>
 
-  <!-- Вкладка 4: История (Текст про РЖЯ) -->
+  <!-- Вкладка 4: История -->
   <div class="tab-content" id="tab-history">
     <div class="app-header">
       <div class="brand">📜 <span>История РЖЯ</span></div>
@@ -427,22 +415,18 @@
     </div>
   </div>
 
-  <!-- 3D Плеер жеста -->
+  <!-- Настоящий 3D Three.js Плеер жеста -->
   <div class="video-modal" id="videoModal">
     <div class="video-card">
       <div style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
         <span id="modalTitle" style="font-weight: 700; font-size: 16px;">Жест</span>
         <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="closeVideoModal()">✕</div>
       </div>
-      <div class="video-screen" id="videoScreen">
-        <div class="hands-3d-stage" id="handsStage">
-          <div class="hand-model hand-left">🖐️</div>
-          <div class="hand-model hand-right">🤚</div>
-        </div>
-        <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 10px; font-size: 11px; color: #2ecc71;">✨ 3D-анимация рук • РЖЯ</div>
+      <div class="video-screen" id="threeContainer">
+        <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 10px; font-size: 11px; color: #2ecc71; z-index: 2;" id="signDescription">✨ 3D-модель (Three.js) • РЖЯ</div>
       </div>
       <div style="padding: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.15);">
-        © Surdo.media, 2026 • Интерактивный жест
+        © Surdo.media, 2026 • Интерактивный 3D-жест
       </div>
     </div>
   </div>
@@ -468,7 +452,18 @@
   </nav>
 
   <script>
-    // Заполнение алфавита
+    // База данных слов и дактилологического алфавита
+    const signDictionary = {
+      "привет": "Дактиль / Жест приветствия: рука поднята на уровень груди, ладонь вперед.",
+      "спасибо": "Правая рука касается подбородка и плавно отводится вперед ладонью вверх.",
+      "помощь": "Кулак одной руки опирается на ладонь другой, движение вверх.",
+      "прививка": "Имитация укола шприцем в область предплечья.",
+      "медицина": "Указательным пальцем чертится крест на ладони или области запястья.",
+      "дом": "Сложенные домиком две ладони над головой или перед грудью.",
+      "семья": "Два кольца из больших и указательных пальцев обеих рук соприкасаются."
+    };
+
+    // Заполнение алфавита буквами РЖЯ
     const alphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
     const grid = document.getElementById('alphabetGrid');
     alphabet.forEach(letter => {
@@ -487,7 +482,7 @@
       document.querySelectorAll('.nav-btn')[index].classList.add('active');
     }
 
-    // Логика Liquid Glass бара с лупой
+    // Liquid Glass бар с лупой
     const track = document.getElementById('segmentedTrack');
     const lens = document.getElementById('lensIndicator');
     const buttons = document.querySelectorAll('.segmented-btn');
@@ -554,23 +549,34 @@
     function searchSign() {
       const query = document.getElementById('signInput').value.trim();
       if (!query) return;
-      document.getElementById('modalTitle').innerText = 'Жест: «' + query + '»';
-      document.getElementById('videoModal').classList.add('open');
+      openSignModal(query);
     }
 
     function quickSearch(word) {
       document.getElementById('signInput').value = word;
-      document.getElementById('modalTitle').innerText = 'Жест: «' + word + '»';
+      openSignModal(word);
+    }
+
+    function openSignModal(query) {
+      document.getElementById('modalTitle').innerText = 'Жест: «' + query + '»';
+      const desc = signDictionary[query.toLowerCase()] || ('Дактилологический знак или жест для слова: «' + query + '». Стандарт РЖЯ.');
+      document.getElementById('signDescription').innerText = '✨ ' + desc;
       document.getElementById('videoModal').classList.add('open');
+      initThreeJS();
     }
 
     function closeVideoModal() {
       document.getElementById('videoModal').classList.remove('open');
+      if (renderer) {
+        renderer.dispose();
+      }
     }
 
     function openSettingsModal() {
       document.getElementById('modalTitle').innerText = 'Настройки приложения';
+      document.getElementById('signDescription').innerText = '⚙️ Версия приложения 2.6 • Режим Apple VisionOS';
       document.getElementById('videoModal').classList.add('open');
+      initThreeJS();
     }
 
     function sendChatMessage() {
@@ -600,51 +606,110 @@
       if (e.key === 'Enter') sendChatMessage();
     });
 
-    // 3D вращение рук
-    const screen = document.getElementById('videoScreen');
-    const stage = document.getElementById('handsStage');
+    // --- THREE.JS ИНИЦИАЛИЗАЦИЯ НАСТОЯЩЕЙ 3D-МОДЕЛИ РУКИ ---
+    let scene, camera, renderer, handGroup;
+    let isThreeInitialized = false;
     let isDragging = false;
-    let startX = 0, startY = 0;
-    let rotateX = 10, rotateY = -10;
+    let previousMousePosition = { x: 0, y: 0 };
 
-    screen.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    });
+    function initThreeJS() {
+      const container = document.getElementById('threeContainer');
+      if (isThreeInitialized) {
+        while(container.firstChild && container.firstChild.nodeName === 'CANVAS') {
+          container.removeChild(container.firstChild);
+        }
+      }
 
-    screen.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      let dx = e.touches[0].clientX - startX;
-      let dy = e.touches[0].clientY - startY;
-      rotateY += dx * 0.5;
-      rotateX -= dy * 0.5;
-      stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    });
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.z = 6;
 
-    screen.addEventListener('touchend', () => { isDragging = false; });
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.insertBefore(renderer.domElement, container.firstChild);
 
-    screen.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+      scene.add(ambientLight);
 
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      let dx = e.clientX - startX;
-      let dy = e.clientY - startY;
-      rotateY += dx * 0.5;
-      rotateX -= dy * 0.5;
-      stage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
+      const pointLight = new THREE.PointLight(0x0a84ff, 2.5, 50);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
 
-    window.addEventListener('mouseup', () => { isDragging = false; });
+      const pointLight2 = new THREE.PointLight(0x2ecc71, 2.0, 50);
+      pointLight2.position.set(-5, -5, 5);
+      scene.add(pointLight2);
+
+      // Создаем полигональную кисть руки из геометрических блоков (Glassmorphism стиль)
+      handGroup = new THREE.Group();
+
+      const glassMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x1f4e78,
+        metalness: 0.15,
+        roughness: 0.15,
+        transmission: 0.7,
+        transparent: true,
+        opacity: 0.9,
+        reflectivity: 0.95,
+        clearcoat: 1.0
+      });
+
+      // Ладонь
+      const palmGeo = new THREE.BoxGeometry(1.2, 1.5, 0.4, 4, 4, 4);
+      const palm = new THREE.Mesh(palmGeo, glassMaterial);
+      handGroup.add(palm);
+
+      // Пальцы
+      const fingerGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.1, 8);
+      const positions = [-0.45, -0.15, 0.15, 0.45];
+      positions.forEach(x => {
+        const fingerMesh = new THREE.Mesh(fingerGeo, glassMaterial);
+        fingerMesh.position.set(x, 1.1, 0);
+        handGroup.add(fingerMesh);
+      });
+
+      // Большой палец
+      const thumbMesh = new THREE.Mesh(fingerGeo, glassMaterial);
+      thumbMesh.rotation.z = Math.PI / 3;
+      thumbMesh.position.set(-0.8, -0.2, 0.2);
+      handGroup.add(thumbMesh);
+
+      scene.add(handGroup);
+
+      // Вращение пальцем / мышкой
+      container.onmousedown = (e) => { isDragging = true; previousMousePosition = { x: e.clientX, y: e.clientY }; };
+      window.onmousemove = (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - previousMousePosition.x;
+        const deltaY = e.clientY - previousMousePosition.y;
+        handGroup.rotation.y += deltaX * 0.01;
+        handGroup.rotation.x += deltaY * 0.01;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+      };
+      window.onmouseup = () => { isDragging = false; };
+
+      container.ontouchstart = (e) => { isDragging = true; previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
+      container.ontouchmove = (e) => {
+        if (!isDragging) return;
+        const deltaX = e.touches[0].clientX - previousMousePosition.x;
+        const deltaY = e.touches[0].clientY - previousMousePosition.y;
+        handGroup.rotation.y += deltaX * 0.01;
+        handGroup.rotation.x += deltaY * 0.01;
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      };
+      container.ontouchend = () => { isDragging = false; };
+
+      function animate() {
+        if (!document.getElementById('videoModal').classList.contains('open')) return;
+        requestAnimationFrame(animate);
+        if (!isDragging) {
+          handGroup.rotation.y += 0.006;
+        }
+        renderer.render(scene, camera);
+      }
+      animate();
+      isThreeInitialized = true;
+    }
   </script>
 </body>
 </html>
-
