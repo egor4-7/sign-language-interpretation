@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>SURDO.MY — Русский жестовый язык</title>
   
-  <meta name="theme-color" content="#0b131e">
+  <meta name="theme-color" content="#120d0b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Surdo">
   
-  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22SURDO.MY%22,%22short_name%22:%22Surdo%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230b131e%22,%22theme_color%22:%22%230b131e%22}">
+  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22SURDO.MY%22,%22short_name%22:%22Surdo%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23120d0b%22,%22theme_color%22:%22%23120d0b%22}">
   
-  <!-- Подключаем Three.js для настоящих полигональных 3D-моделей рук -->
+  <!-- Подключаем Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
@@ -31,20 +31,22 @@
       height: 100%;
       height: -webkit-fill-available;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 15%, #183152 0%, #070d16 100%);
+      /* Теплый, воздушный градиент в темных тонах */
+      background: radial-gradient(circle at 50% 15%, #2d201c 0%, #0e0a08 100%);
       color: #ffffff;
       position: fixed;
     }
 
+    /* Теплая и воздушная амбиентная подсветка */
     .ambient-glow-1 {
-      position: absolute; width: 320px; height: 320px;
-      background: rgba(0, 122, 255, 0.22); filter: blur(90px); border-radius: 50%;
-      top: -60px; left: -60px; z-index: 1; pointer-events: none;
+      position: absolute; width: 340px; height: 340px;
+      background: rgba(255, 159, 10, 0.16); filter: blur(100px); border-radius: 50%;
+      top: -80px; left: -60px; z-index: 1; pointer-events: none;
     }
     .ambient-glow-2 {
-      position: absolute; width: 280px; height: 280px;
-      background: rgba(46, 204, 113, 0.15); filter: blur(90px); border-radius: 50%;
-      bottom: 100px; right: -50px; z-index: 1; pointer-events: none;
+      position: absolute; width: 300px; height: 300px;
+      background: rgba(255, 107, 107, 0.12); filter: blur(100px); border-radius: 50%;
+      bottom: 80px; right: -50px; z-index: 1; pointer-events: none;
     }
 
     .tab-content {
@@ -66,11 +68,11 @@
       background: rgba(255, 255, 255, 0.08); padding: 8px 16px; border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px);
     }
-    .brand span { color: #0a84ff; text-shadow: 0 0 10px rgba(10, 132, 255, 0.6); }
+    .brand span { color: #ff9f0a; text-shadow: 0 0 12px rgba(255, 159, 10, 0.5); }
 
     .menu-btn {
       width: 44px; height: 44px;
-      background: rgba(15, 34, 61, 0.55); backdrop-filter: blur(25px);
+      background: rgba(35, 25, 22, 0.6); backdrop-filter: blur(25px);
       border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
       cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.2s;
@@ -79,11 +81,11 @@
     .menu-btn span { width: 16px; height: 2px; background: #fff; border-radius: 2px; }
 
     .hero-banner {
-      background: linear-gradient(135deg, rgba(20, 50, 80, 0.6) 0%, rgba(10, 25, 45, 0.7) 100%);
+      background: linear-gradient(135deg, rgba(50, 35, 30, 0.6) 0%, rgba(20, 15, 14, 0.7) 100%);
       backdrop-filter: blur(35px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 32px; padding: 20px; margin-bottom: 16px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.3);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.25);
       display: flex; align-items: center; justify-content: space-between;
     }
     .hero-content { max-width: 60%; }
@@ -92,10 +94,10 @@
     
     .hero-avatar-box {
       width: 80px; height: 80px;
-      background: radial-gradient(circle, rgba(10,132,255,0.4) 0%, rgba(0,0,0,0.4) 100%);
+      background: radial-gradient(circle, rgba(255,159,10,0.35) 0%, rgba(0,0,0,0.4) 100%);
       border: 1.5px solid rgba(255,255,255,0.3); border-radius: 26px;
-      display: flex; align-items: center; justify-content: center; font-size: 40px;
-      box-shadow: 0 10px 30px rgba(10,132,255,0.4);
+      display: flex; align-items: center; justify-content: center; font-size: 38px;
+      box-shadow: 0 10px 30px rgba(255,159,10,0.3);
       animation: floatAvatar 4s ease-in-out infinite;
     }
     @keyframes floatAvatar {
@@ -104,8 +106,8 @@
     }
 
     .glass-card {
-      background: rgba(15, 34, 61, 0.45); backdrop-filter: blur(30px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 18px;
+      background: rgba(35, 25, 22, 0.45); backdrop-filter: blur(30px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 28px; padding: 18px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 16px;
     }
 
@@ -119,10 +121,10 @@
     .search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
     .search-icon-btn {
-      width: 44px; height: 44px; background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%);
+      width: 44px; height: 44px; background: linear-gradient(135deg, #ff9f0a 0%, #e08200 100%);
       border: none; border-radius: 18px; color: #fff; font-size: 18px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 16px rgba(10,132,255,0.4); transition: transform 0.2s;
+      box-shadow: 0 6px 16px rgba(255,159,10,0.4); transition: transform 0.2s;
     }
     .search-icon-btn:active { transform: scale(0.9); }
 
@@ -134,7 +136,7 @@
 
     .segmented-track {
       position: relative; display: inline-flex;
-      background: rgba(15, 34, 61, 0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      background: rgba(35, 25, 22, 0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 4px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); user-select: none;
     }
@@ -166,8 +168,8 @@
     .section-view.active { display: flex; }
 
     .category-card {
-      background: rgba(15, 34, 61, 0.5); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.18); border-radius: 22px; padding: 14px 18px;
+      background: rgba(35, 25, 22, 0.5); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 22px; padding: 14px 18px;
       display: flex; align-items: center; justify-content: space-between; cursor: pointer;
       box-shadow: 0 8px 20px rgba(0,0,0,0.25); transition: transform 0.2s;
     }
@@ -180,24 +182,24 @@
       display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800;
       cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    .alpha-btn:active { background: rgba(10,132,255,0.4); transform: scale(0.95); }
+    .alpha-btn:active { background: rgba(255,159,10,0.4); transform: scale(0.95); }
 
     /* История */
     .history-card {
-      background: rgba(15, 34, 61, 0.5); backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 28px; padding: 22px;
+      background: rgba(35, 25, 22, 0.5); backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 28px; padding: 22px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.4); line-height: 1.6; font-size: 14px; color: rgba(255,255,255,0.9);
       display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;
     }
     .history-card h2 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .history-card h3 { font-size: 16px; font-weight: 700; color: #0a84ff; margin-top: 8px; }
+    .history-card h3 { font-size: 16px; font-weight: 700; color: #ff9f0a; margin-top: 8px; }
     .history-card p { color: rgba(255,255,255,0.8); }
     .history-card ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 
     /* Чат */
     .chat-container {
       flex: 1; display: flex; flex-direction: column; justify-content: space-between;
-      background: rgba(15, 34, 61, 0.4); backdrop-filter: blur(25px);
+      background: rgba(35, 25, 22, 0.4); backdrop-filter: blur(25px);
       border-radius: 28px; border: 1px solid rgba(255,255,255,0.15);
       overflow: hidden; padding: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
@@ -213,8 +215,8 @@
       border: 1px solid rgba(255, 255, 255, 0.2); border-bottom-left-radius: 6px;
     }
     .message.outgoing {
-      background: linear-gradient(135deg, #0a84ff 0%, #0056b3 100%); align-self: flex-end;
-      border-bottom-right-radius: 6px; box-shadow: 0 6px 20px rgba(10,132,255,0.4);
+      background: linear-gradient(135deg, #ff9f0a 0%, #d67c00 100%); align-self: flex-end;
+      border-bottom-right-radius: 6px; box-shadow: 0 6px 20px rgba(255,159,10,0.4);
     }
     .chat-input-row {
       display: flex; gap: 8px; align-items: center; margin-top: 10px;
@@ -231,24 +233,24 @@
     }
     .chat-bubble:active { background: rgba(255, 255, 255, 0.18); }
 
-    /* Настоящий 3D Three.js Плеер жеста */
+    /* 3D Плеер жеста */
     .video-modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+      background: rgba(10, 7, 6, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
       z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
     }
     .video-modal.open { opacity: 1; pointer-events: auto; }
 
     .video-card {
-      width: 100%; max-width: 440px; background: rgba(15, 34, 61, 0.7);
-      backdrop-filter: blur(30px); border-radius: 32px; border: 1px solid rgba(255,255,255,0.3);
+      width: 100%; max-width: 440px; background: rgba(35, 25, 22, 0.75);
+      backdrop-filter: blur(30px); border-radius: 32px; border: 1px solid rgba(255,255,255,0.25);
       overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
     }
 
     .video-screen {
-      width: 100%; height: 260px;
-      background: radial-gradient(circle at 50% 50%, #102a1c 0%, #050d0a 100%);
+      width: 100%; height: 280px;
+      background: radial-gradient(circle at 50% 50%, #301d16 0%, #0d0705 100%);
       position: relative; overflow: hidden; cursor: grab;
     }
     .video-screen:active { cursor: grabbing; }
@@ -257,23 +259,23 @@
     .bottom-nav {
       position: fixed; bottom: max(20px, env(safe-area-inset-bottom));
       left: 16px; right: 16px; height: 76px;
-      background: rgba(15, 34, 61, 0.55); backdrop-filter: blur(35px) saturate(190%);
+      background: rgba(35, 25, 22, 0.6); backdrop-filter: blur(35px) saturate(190%);
       -webkit-backdrop-filter: blur(35px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 38px;
       display: flex; align-items: center; justify-content: space-around; padding: 0 4px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.3); z-index: 50;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.25); z-index: 50;
     }
 
     .nav-btn {
       background: transparent; border: none; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 3px; color: rgba(255, 255, 255, 0.5);
+      align-items: center; justify-content: center; gap: 4px; color: rgba(255, 255, 255, 0.45);
       cursor: pointer; width: 25%; height: 100%; transition: color 0.2s, transform 0.2s;
     }
     .nav-btn:active { transform: scale(0.92); }
-    .nav-icon { font-size: 20px; }
+    .nav-icon { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .nav-label { font-size: 10px; font-weight: 600; }
     .nav-btn.active { color: #ffffff; text-shadow: 0 0 12px rgba(255,255,255,0.6); }
-    .nav-btn.active .nav-icon { filter: drop-shadow(0 0 8px rgba(10,132,255,0.8)); }
+    .nav-btn.active .nav-icon { stroke: #ff9f0a; filter: drop-shadow(0 0 8px rgba(255,159,10,0.8)); }
   </style>
 </head>
 <body>
@@ -293,15 +295,15 @@
     <div class="hero-banner">
       <div class="hero-content">
         <div class="hero-title">Живой перевод жестов</div>
-        <div class="hero-subtitle">Полный словарь, дактилологический алфавит и 3D-модели РЖЯ</div>
+        <div class="hero-subtitle">Теплый дизайн, векторные иконки и 3D-модели РЖЯ</div>
       </div>
-      <div class="hero-avatar-box">🤖</div>
+      <div class="hero-avatar-box">✨</div>
     </div>
 
     <div class="glass-card">
       <div class="search-row">
         <span style="font-size: 20px;">🇷🇺</span>
-        <input type="text" class="search-input" id="signInput" placeholder="Введите слово или букву...">
+        <input type="text" class="search-input" id="signInput" placeholder="Введите слово или букву А-Я...">
         <button class="search-icon-btn" onclick="searchSign()">🔍</button>
       </div>
     </div>
@@ -318,9 +320,9 @@
       </div>
     </div>
 
-    <!-- Вид 1: Расширенные категории -->
+    <!-- Вид 1: Категории -->
     <div class="section-view active" id="viewCategories">
-      <div class="category-card" onclick="quickSearch('Приветствие')">
+      <div class="category-card" onclick="quickSearch('Привет')">
         <div><b style="font-size: 14px;">👋 Приветствие и знакомство</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Привет, спасибо, пожалуйста, пока</div></div>
         <span>▶</span>
       </div>
@@ -328,25 +330,21 @@
         <div><b style="font-size: 14px;">🩺 Медицина и здоровье</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Врач, больница, прививка, аптека</div></div>
         <span>▶</span>
       </div>
-      <div class="category-card" onclick="quickSearch('Семья и человек')">
+      <div class="category-card" onclick="quickSearch('Семья')">
         <div><b style="font-size: 14px;">👨‍👩‍👧 Семья, человек, внешность</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Мама, папа, друг, человек</div></div>
         <span>▶</span>
       </div>
-      <div class="category-card" onclick="quickSearch('Город и транспорт')">
+      <div class="category-card" onclick="quickSearch('Транспорт')">
         <div><b style="font-size: 14px;">🚌 Город и транспорт</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Автобус, магазин, аптека, улица</div></div>
         <span>▶</span>
       </div>
-      <div class="category-card" onclick="quickSearch('Еда и кухня')">
+      <div class="category-card" onclick="quickSearch('Еда')">
         <div><b style="font-size: 14px;">🍏 Кухня и еда</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Вода, хлеб, чай, обед</div></div>
-        <span>▶</span>
-      </div>
-      <div class="category-card" onclick="quickSearch('Счет, числительные')">
-        <div><b style="font-size: 14px;">🔢 Счет, числительные</b><div style="font-size: 11px; color: rgba(255,255,255,0.6);">Один, два, три, сто</div></div>
         <span>▶</span>
       </div>
     </div>
 
-    <!-- Вид 2: Полноценный алфавит (А-Я) -->
+    <!-- Вид 2: Алфавит (А-Я) -->
     <div class="section-view" id="viewAlphabet">
       <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 6px;">Нажмите на любую букву для демонстрации дактилологического знака:</div>
       <div class="alphabet-grid" id="alphabetGrid"></div>
@@ -415,7 +413,7 @@
     </div>
   </div>
 
-  <!-- Настоящий 3D Three.js Плеер жеста -->
+  <!-- Кинематический 3D Плеер жеста -->
   <div class="video-modal" id="videoModal">
     <div class="video-card">
       <div style="padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
@@ -423,53 +421,65 @@
         <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="closeVideoModal()">✕</div>
       </div>
       <div class="video-screen" id="threeContainer">
-        <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 10px; font-size: 11px; color: #2ecc71; z-index: 2;" id="signDescription">✨ 3D-модель (Three.js) • РЖЯ</div>
+        <div style="position: absolute; bottom: 12px; left: 16px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 10px; font-size: 11px; color: #ffbc42; z-index: 2;" id="signDescription">✨ 3D-скелет кисти • РЖЯ</div>
       </div>
       <div style="padding: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.15);">
-        © Surdo.media, 2026 • Интерактивный 3D-жест
+        © Surdo.media, 2026 • Интерактивный жест
       </div>
     </div>
   </div>
 
-  <!-- Нижняя навигация -->
+  <!-- Нижняя навигация с векторными SVG-иконками -->
   <nav class="bottom-nav">
+    <!-- Кнопка 1: Перевод -->
     <button class="nav-btn active" onclick="switchTab('translate', 0)">
-      <span class="nav-icon">📖</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
       <span class="nav-label">Перевод</span>
     </button>
+    <!-- Кнопка 2: Диалог -->
     <button class="nav-btn" onclick="switchTab('chat-person', 1)">
-      <span class="nav-icon">💬</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
       <span class="nav-label">Диалог</span>
     </button>
+    <!-- Кнопка 3: Общение -->
     <button class="nav-btn" onclick="switchTab('chat', 2)">
-      <span class="nav-icon">👥</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       <span class="nav-label">Общение</span>
     </button>
+    <!-- Кнопка 4: История -->
     <button class="nav-btn" onclick="switchTab('history', 3)">
-      <span class="nav-icon">📜</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
       <span class="nav-label">История</span>
     </button>
   </nav>
 
   <script>
-    // База данных слов и дактилологического алфавита
-    const signDictionary = {
-      "привет": "Дактиль / Жест приветствия: рука поднята на уровень груди, ладонь вперед.",
-      "спасибо": "Правая рука касается подбородка и плавно отводится вперед ладонью вверх.",
-      "помощь": "Кулак одной руки опирается на ладонь другой, движение вверх.",
-      "прививка": "Имитация укола шприцем в область предплечья.",
-      "медицина": "Указательным пальцем чертится крест на ладони или области запястья.",
-      "дом": "Сложенные домиком две ладони над головой или перед грудью.",
-      "семья": "Два кольца из больших и указательных пальцев обеих рук соприкасаются."
+    const signGestures = {
+      "привет": { desc: "Приветствие: кисть открыта, пальцы выпрямлены.", pose: [0, 0, 0, 0, -0.5] },
+      "спасибо": { desc: "Благодарность: пальцы слегка согнуты у подбородка.", pose: [0.8, 0.8, 0.8, 0.8, 0.2] },
+      "помощь": { desc: "Помощь: кулак опирается на раскрытую ладонь.", pose: [1.2, 1.2, 1.2, 1.2, 0.8] },
+      "медицина": { desc: "Медицина: указательный палец поднят вверх.", pose: [0, 1.4, 1.4, 1.4, 0.5] },
+      "дом": { desc: "Дом: пальцы сомкнуты домиком.", pose: [0.5, 0.5, 0.5, 0.5, 0.5] },
+      "семья": { desc: "Семья: пальцы образуют кольцо.", pose: [0.3, 0.3, 0.3, 0.3, 0.1] }
     };
 
-    // Заполнение алфавита буквами РЖЯ
     const alphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
     const grid = document.getElementById('alphabetGrid');
-    alphabet.forEach(letter => {
+    alphabet.forEach((letter, index) => {
       const btn = document.createElement('div');
       btn.className = 'alpha-btn';
       btn.innerText = letter;
+      const poseValues = [
+        (index % 5) * 0.3, 
+        ((index + 1) % 4) * 0.4, 
+        ((index + 2) % 4) * 0.3, 
+        (index % 3) * 0.5, 
+        (index % 2) * 0.4
+      ];
+      signGestures['буква ' + letter] = {
+        desc: 'Дактилологический знак буквы «' + letter + '» русского жестового языка.',
+        pose: poseValues
+      };
       btn.onclick = () => quickSearch('Буква ' + letter);
       grid.appendChild(btn);
     });
@@ -482,7 +492,6 @@
       document.querySelectorAll('.nav-btn')[index].classList.add('active');
     }
 
-    // Liquid Glass бар с лупой
     const track = document.getElementById('segmentedTrack');
     const lens = document.getElementById('lensIndicator');
     const buttons = document.querySelectorAll('.segmented-btn');
@@ -557,24 +566,31 @@
       openSignModal(word);
     }
 
+    let currentPoseTarget = [0, 0, 0, 0, 0];
+
     function openSignModal(query) {
       document.getElementById('modalTitle').innerText = 'Жест: «' + query + '»';
-      const desc = signDictionary[query.toLowerCase()] || ('Дактилологический знак или жест для слова: «' + query + '». Стандарт РЖЯ.');
-      document.getElementById('signDescription').innerText = '✨ ' + desc;
+      const key = query.toLowerCase();
+      const gestureData = signGestures[key] || { 
+        desc: 'Жест или слово: «' + query + '». Стандартный словарный запас РЖЯ.', 
+        pose: [0.5, 0.8, 0.4, 0.6, 0.3] 
+      };
+      
+      document.getElementById('signDescription').innerText = '✨ ' + gestureData.desc;
+      currentPoseTarget = gestureData.pose;
       document.getElementById('videoModal').classList.add('open');
       initThreeJS();
     }
 
     function closeVideoModal() {
       document.getElementById('videoModal').classList.remove('open');
-      if (renderer) {
-        renderer.dispose();
-      }
+      if (renderer) renderer.dispose();
     }
 
     function openSettingsModal() {
       document.getElementById('modalTitle').innerText = 'Настройки приложения';
-      document.getElementById('signDescription').innerText = '⚙️ Версия приложения 2.6 • Режим Apple VisionOS';
+      document.getElementById('signDescription').innerText = '⚙️ Версия приложения 2.8 • Теплый режим VisionOS';
+      currentPoseTarget = [0, 0, 0, 0, 0];
       document.getElementById('videoModal').classList.add('open');
       initThreeJS();
     }
@@ -606,8 +622,9 @@
       if (e.key === 'Enter') sendChatMessage();
     });
 
-    // --- THREE.JS ИНИЦИАЛИЗАЦИЯ НАСТОЯЩЕЙ 3D-МОДЕЛИ РУКИ ---
+    // --- THREE.JS С ТЕПЛЫМ ОСВЕЩЕНИЕМ ---
     let scene, camera, renderer, handGroup;
+    let fingers = [];
     let isThreeInitialized = false;
     let isDragging = false;
     let previousMousePosition = { x: 0, y: 0 };
@@ -622,61 +639,70 @@
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-      camera.position.z = 6;
+      camera.position.z = 6.5;
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.insertBefore(renderer.domElement, container.firstChild);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+      const ambientLight = new THREE.AmbientLight(0xffeedd, 1.1);
       scene.add(ambientLight);
 
-      const pointLight = new THREE.PointLight(0x0a84ff, 2.5, 50);
-      pointLight.position.set(5, 5, 5);
+      // Теплые янтарные и коралловые источники света для модели
+      const pointLight = new THREE.PointLight(0xffaa33, 3.5, 50);
+      pointLight.position.set(5, 5, 6);
       scene.add(pointLight);
 
-      const pointLight2 = new THREE.PointLight(0x2ecc71, 2.0, 50);
-      pointLight2.position.set(-5, -5, 5);
+      const pointLight2 = new THREE.PointLight(0xff6b6b, 2.5, 50);
+      pointLight2.position.set(-5, -5, 6);
       scene.add(pointLight2);
 
-      // Создаем полигональную кисть руки из геометрических блоков (Glassmorphism стиль)
       handGroup = new THREE.Group();
+      fingers = [];
 
+      // Теплый стекловидный материал (Warm Glassmorphism)
       const glassMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0x1f4e78,
-        metalness: 0.15,
+        color: 0x553322,
+        metalness: 0.2,
         roughness: 0.15,
-        transmission: 0.7,
+        transmission: 0.65,
         transparent: true,
         opacity: 0.9,
         reflectivity: 0.95,
         clearcoat: 1.0
       });
 
-      // Ладонь
-      const palmGeo = new THREE.BoxGeometry(1.2, 1.5, 0.4, 4, 4, 4);
+      const palmGeo = new THREE.BoxGeometry(1.4, 1.6, 0.45, 6, 6, 6);
       const palm = new THREE.Mesh(palmGeo, glassMaterial);
       handGroup.add(palm);
 
-      // Пальцы
-      const fingerGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.1, 8);
-      const positions = [-0.45, -0.15, 0.15, 0.45];
-      positions.forEach(x => {
+      const positions = [-0.48, -0.16, 0.16, 0.48];
+      positions.forEach((x, idx) => {
+        const fingerPivot = new THREE.Group();
+        fingerPivot.position.set(x, 1.0, 0);
+
+        const fingerGeo = new THREE.CylinderGeometry(0.11, 0.1, 1.2, 8);
         const fingerMesh = new THREE.Mesh(fingerGeo, glassMaterial);
-        fingerMesh.position.set(x, 1.1, 0);
-        handGroup.add(fingerMesh);
+        fingerMesh.position.set(0, 0.6, 0);
+        fingerPivot.add(fingerMesh);
+
+        handGroup.add(fingerPivot);
+        fingers.push({ pivot: fingerPivot, index: idx });
       });
 
-      // Большой палец
-      const thumbMesh = new THREE.Mesh(fingerGeo, glassMaterial);
+      const thumbPivot = new THREE.Group();
+      thumbPivot.position.set(-0.8, -0.3, 0.1);
+      const thumbGeo = new THREE.CylinderGeometry(0.13, 0.11, 1.0, 8);
+      const thumbMesh = new THREE.Mesh(thumbGeo, glassMaterial);
       thumbMesh.rotation.z = Math.PI / 3;
-      thumbMesh.position.set(-0.8, -0.2, 0.2);
-      handGroup.add(thumbMesh);
+      thumbMesh.position.set(-0.4, 0.3, 0);
+      thumbPivot.add(thumbMesh);
+      handGroup.add(thumbPivot);
+      fingers.push({ pivot: thumbPivot, index: 4 });
 
       scene.add(handGroup);
 
-      // Вращение пальцем / мышкой
       container.onmousedown = (e) => { isDragging = true; previousMousePosition = { x: e.clientX, y: e.clientY }; };
       window.onmousemove = (e) => {
         if (!isDragging) return;
@@ -702,8 +728,14 @@
       function animate() {
         if (!document.getElementById('videoModal').classList.contains('open')) return;
         requestAnimationFrame(animate);
+
+        fingers.forEach(f => {
+          const targetAngle = currentPoseTarget[f.index] || 0;
+          f.pivot.rotation.x += (targetAngle - f.pivot.rotation.x) * 0.1;
+        });
+
         if (!isDragging) {
-          handGroup.rotation.y += 0.006;
+          handGroup.rotation.y += 0.005;
         }
         renderer.render(scene, camera);
       }
